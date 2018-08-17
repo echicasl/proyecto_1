@@ -1,5 +1,6 @@
 <?php
     session_start();
+
 /*
     if (isset($_SESSION['autorizado']) == true) {
     
@@ -7,6 +8,17 @@
         require("../libreria/notaNoAutorizado.php");
     exit;
     }*/
+
+
+    require("../conexion.php");
+
+    if (mysqli_connect_errno())
+      {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      }
+    
+    $sql="SELECT * FROM departamento where descripcion_departamento ";
+  
 
 ?>
 
@@ -119,16 +131,17 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
                 <h1>Departamento</h1><br>
 
-               <form action="../insertDB/i_depto.php" method="POST" class="login-form">
+               <form action="../insertDB/u_depto.php" method="POST" class="login-form">
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Descripción de Departamento</label>
+                        <label for="formGroupExampleInput">Buscar departamento</label>
                         <input type="text" class="form-control" maxlength="100" id="descripcion_departamento" name="descripcion_departamento" placeholder="Descripción" required>
+                        
+                        <label for="formGroupExampleInput">Nuevo Dato de departamento</label>
+                        <input type="text" class="form-control" maxlength="100" id="ndescripcion_departamento" name="ndescripcion_departamento" placeholder="Descripción" required>
+                                           
                     </div>
-                    <button type="submit" class="btn btn-success">Enviar</button>
-                </form>
-                <form action="../Tablas/U_Departamento.php" method="POST" class="login-form">
-                 <button type="submit" class="btn btn-success">Actualizar datos</button>
-                 </form>
+                    <button type="submit" class="btn btn-success">Buscar</button>
+            
             </div>
         </div>
 

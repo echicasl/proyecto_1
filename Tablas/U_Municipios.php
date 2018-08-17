@@ -16,11 +16,7 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
     
-    $sql="SELECT * FROM tb_tipoingreso";
-    $sql2="SELECT * FROM tb_destsubsidio";
-    $sql3="SELECT * FROM in_proyecto";
-    $sql4="SELECT * FROM usuarios";
-
+    $sql="SELECT * FROM departamento";
 
 ?>
 
@@ -34,7 +30,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Form-Expediente</title>
+    <title>Form-Municipios</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -123,22 +119,23 @@
                 <li>
                     <a href="Usuarios.php">Usuarios</a>
                 </li>
-
             </ul>
         </div>
+        <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
 
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
-                <h1>Expediente</h1><br>
+                <h1>Municipios</h1><br>
 
-                <form action="../insertDB/i_expediente.php" method="POST" class="login-form">    
-                   <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Tipo Ingreso</label>
-                      <select class="form-control" id="id_TipoIngreso" name="id_TipoIngreso">
-                           <?php
+               <form action="../insertDB/u_municipio.php" method="POST" class="login-form">
+
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1"> Departamento</label>
+                      <select class="form-control" id="id_departamento" name="id_departamento">
+                      <?php
                            
 
                            if ($result=mysqli_query($conexion,$sql))
@@ -154,92 +151,27 @@
                             ?>
                       </select>
                     </div>
-                   <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Tipo Solicitud Subsidio</label>
-                      <select class="form-control" id="id_TipoSolicitudSubsidio" name="id_TipoSolicitudSubsidio">
-                      <?php
-                           
-
-                           if ($result=mysqli_query($conexion,$sql2))
-                           {
-                           // Fetch one and one row
-                               while ($row=mysqli_fetch_row($result))
-                           {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
-                           }
-               
-                           
-                               }
-                            ?>
-                      </select>
-                    </div>
-                   <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Proyecto</label>
-                      <select class="form-control" id="id_Proyecto" name="id_Proyecto">
-                      <?php
-                           
-
-                           if ($result=mysqli_query($conexion,$sql3))
-                           {
-                           // Fetch one and one row
-                               while ($row=mysqli_fetch_row($result))
-                           {
-                               echo "<option value=\"".$row[0]."\">".$row[3]."</option>";
-                           }
-               
-                           
-                               }
-                            ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Usuario</label>
-                      <select class="form-control" id="id_Usuario" name="id_Usuario">
-                      <?php
-                           
-
-                           if ($result=mysqli_query($conexion,$sql4))
-                           {
-                           // Fetch one and one row
-                               while ($row=mysqli_fetch_row($result))
-                           {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
-                           }
-               
-                           
-                               }
-                            ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="example-date-input" col-form-label>Fecha de Registro</label>
-                    <div>
-                        <input class="form-control" type="date" value="03-08-2018" id="fecha_registro" name="fecha_registro">
-                    </div><br>
 
                     <div class="form-group">
-                        <label for="exampleTextarea">Observaciones de Expediente</label>
-                        <textarea class="form-control" maxlength="200" id="observaciones_expediente" name="observaciones_expediente" rows="3" required></textarea>
+                      <label for="formGroupExampleInput">Descipción de Municipio</label>
+                      <input type="text" maxlength="100" class="form-control" id="descripcion_municipio" name="descripcion_municipio" placeholder="Descripción" required>
                     </div>
+
                     <div class="form-group">
-                      <label for="formGroupExampleInput">Monto Solicitado</label>
-                      <input type="number" class="form-control" id="monto_solicitado" name="monto_solicitado" placeholder="Ingrese Monto">
-                    </div> 
+                      <label for="formGroupExampleInput">Nueva Descipción de Municipio</label>
+                      <input type="text" maxlength="100" class="form-control" id="ndescripcion_municipio" name="ndescripcion_municipio" placeholder="Descripción" required>
                     </div>
-                    <div class="form-group">
-                      <label for="formGroupExampleInput">Longitud del Proyecto</label>
-                      <input type="number" class="form-control" min="0" max="180" id="longitud_proyecto" name="longitud_proyecto" placeholder="Ingrese Longitud" required>
-                    </div>   
-                    <div class="form-group">
-                      <label for="formGroupExampleInput">Latitud de Proyecto</label>
-                      <input type="number" class="form-control" id="latitud_proyecto" name="latitud_proyecto" placeholder="Ingrese Latitud" min="0" max="90" required>
-                    </div>    
-                    <button type="submit" class="btn btn-success">Enviar</button>
-                </form> 
+
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+
+                </form>
 
             </div>
         </div>
+
     </div>
+    <!-- /#wrapper -->
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

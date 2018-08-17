@@ -17,8 +17,10 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
     
-    $sql="SELECT * FROM rol ";
-    $sql1="SELECT * FROM unidadtrabajo ";
+    $sql="SELECT * FROM usuarios ";
+    $sql1="SELECT * FROM rol ";
+    $sql2="SELECT * FROM unidadtrabajo ";
+    $sql3="SELECT * FROM tb_genero ";
 
 ?>
 
@@ -132,11 +134,11 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
                 <h1>Usuarios</h1><br>
 
-                <form name="formusuarios" action="" method="POST">
+               <form action="../insertDB/i_usuarios.php" method="POST" class="login-form">
 
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Rol</label>
-                      <select class="form-control" id="id_rol">
+                      <label for="exampleFormControlSelect1">Id login</label>
+                      <select class="form-control" id="id_login" name="id_login">
                       <?php
                            
                            if ($result=mysqli_query($conexion,$sql))
@@ -152,9 +154,10 @@
                    ?>
                       </select>
                     </div>
+
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Unidad</label>
-                      <select class="form-control" id="id_unidad">
+                      <label for="exampleFormControlSelect1">Id Rol</label>
+                      <select class="form-control" id="id_rol" name="id_rol">
                       <?php
                            
                            if ($result=mysqli_query($conexion,$sql1))
@@ -171,59 +174,82 @@
                       </select>
                     </div>
                     <div class="form-group">
+                      <label for="exampleFormControlSelect1">Id Unidad de Trabajo</label>
+                      <select class="form-control" id="id_unidad_trabajo" name="id_unidad_trabajo">
+                        <?php
+                           
+                           if ($result=mysqli_query($conexion,$sql2))
+                           {
+                           // Fetch one and one row
+                               while ($row=mysqli_fetch_row($result))
+                           {
+                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                           }
+               
+                           
+                               }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Género</label>
-                      <select class="form-control" id="id_genero">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <select class="form-control" id="id_genero" name="id_genero">
+                      <?php
+                           
+                           if ($result=mysqli_query($conexion,$sql3))
+                           {
+                           // Fetch one and one row
+                               while ($row=mysqli_fetch_row($result))
+                           {
+                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                           }
+               
+                           
+                               }
+                        ?>
                       </select>
                     </div>
                     <div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 1</label>
-                      <input type="text" class="form-control" maxlength="25" id="nomrbre1" name="nomrbre1" placeholder="Ingrese el Nombre" required>
+                      <input type="text" class="form-control" maxlength="25" id="nombre_1" name="nombre_1" placeholder="Ingrese el Nombre" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 2</label>
-                      <input type="text" class="form-control" maxlength="25" id="nombre2" name="nombre2" placeholder="Ingrese el Nombre">
+                      <input type="text" class="form-control" maxlength="25" id="nombre_2" name="nombre_2" placeholder="Ingrese el Nombre">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 3</label>
-                      <input type="text" class="form-control" maxlength="25" id="nombre3" name="nombre3" placeholder="Ingrese el Nombre">
+                      <input type="text" class="form-control" maxlength="25" id="nombre_3" name="nombre_3" placeholder="Ingrese el Nombre">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 1</label>
-                      <input type="text" class="form-control" maxlength="25" id="ape1lido1" name="ape1lido1" placeholder="Ingrese el Apellido" required>
+                      <input type="text" class="form-control" maxlength="25" id="apellido_1" name="apellido_1" placeholder="Ingrese el Apellido" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 2</label>
-                      <input type="text" class="form-control" maxlength="25" id="ape1lido2" name="ape1lido2" placeholder="Ingrese el Apellido 2">
+                      <input type="text" class="form-control" maxlength="25" id="apellido_2" name="apellido_2" placeholder="Ingrese el Apellido 2">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 3</label>
-                      <input type="text" class="form-control" maxlength="25" id="apellido3" name="apellido3" placeholder="Ingrese el Apellido 2">
+                      <input type="text" class="form-control" maxlength="25" id="apellido_3" name="apellido_3" placeholder="Ingrese el Apellido 2">
                     </div>
-                        <label>Estatus</label><br>  
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="estatus1" id="estatus1" value="option1" checked> Activada
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="estatus2" id="estatus2" value="option2"> Desactivada
-                            </label>
-                        </div>
-                    </div><br>
+
                     <div class="form-group">
                         <label for="exampleInputPassword1">Clave</label>
-                        <input type="password" class="form-control" maxlength="200" id="clave" neme="clave" placeholder="Ingrese la Clave" required>
+                        <input type="password" class="form-control" maxlength="200" id="clave" name="clave" placeholder="Ingrese la Clave" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre de Usuario</label>
-                      <input type="text" class="form-control" maxlength="20" id="username" placeholder="Nombre del Usuario" required>
+                      <input type="text" class="form-control" maxlength="20" id="username" name="username" placeholder="Nombre del Usuario" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1"> Estatus</label>
+                      <select class="form-control" id="estatus" name="estatus">
+                        <option>Activado</option>
+                        <option>Desactivado</option>
+                      </select>
                     </div>
 
                     <button type="submit" class="btn btn-success">Enviar</button>

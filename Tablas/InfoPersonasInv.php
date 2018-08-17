@@ -1,13 +1,24 @@
 <?php
-    session_start();
+ /*   session_start();
 
-/*
+
     if (isset($_SESSION['autorizado']) == true) {
     
     } else {
         require("../libreria/notaNoAutorizado.php");
     exit;
     }*/
+    
+    require("../conexion.php");
+
+    if (mysqli_connect_errno())
+      {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      }
+    
+    $sql="SELECT * FROM tb_expedienterequisito";
+    $sql1="SELECT * FROM tb_relacionfamiliar";
+    $sql2="SELECT * FROM tb_genero";
 
 ?>
 
@@ -21,7 +32,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Form-InfoPersonas</title>
+    <title>Form-ExpReq</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -112,19 +123,19 @@
                 </li>
             </ul>
         </div>
-        <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
 
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
-                <h1>Información de Personas Involucradas</h1><br>
+                <h1>Información Personas Involucradas</h1><br>
 
-                <form name="forminfopersonas" action="" method="POST">
+                <form action="../insertDB/i_infoPerInv.php" method="POST" class="login-form">
+
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Expediente Requisito</label>
-                      <select class="form-control" id="id_ExpedienteRequisito" name="id_ExpedienteRequisito" >
+                      <label for="exampleFormControlSelect1">Id Expediente Requisito (N. Expediente)</label>
+                      <select class="form-control" id="id_ExpedienteRequisito" name="id_ExpedienteRequisito">
                       <?php
                            
 
@@ -133,39 +144,40 @@
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[2]."</option>";
                            }
                
                            
                                }
-                            ?>
+                        ?>
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Relación Familiar</label>
-                      <select class="form-control" id="id_RelacionFamiliar" id="id_RelacionFamiliar">
+                      <select class="form-control" id="id_RelacionFamiliar" name="id_RelacionFamiliar">
                       <?php
-                        
-                           if ($result=mysqli_query($conexion,$sql))
+                           
+
+                           if ($result=mysqli_query($conexion,$sql1))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
                                echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
                            }
+               
                            
                                }
-                            ?>
+                        ?>
                       </select>
                     </div>
-
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Género</label>
-                      <select class="form-control" id="id_genero" id="id_genero">
+                      <select class="form-control" id="id_genero" name="id_genero">
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql2))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
@@ -175,55 +187,37 @@
                
                            
                                }
-                            ?>
+                        ?>
                       </select>
                     </div>
 
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Teléfono</label>
-                      <select class="form-control" id="id_telefono" name="id_telefono">
-                      <?php
-                           
-                           if ($result=mysqli_query($conexion,$sql))
-                           {
-                           // Fetch one and one row
-                               while ($row=mysqli_fetch_row($result))
-                           {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
-                           }
-               
-                           
-                               }
-                            ?>
-                      </select>
-                    </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Número de Documento</label>
-                      <input type="text" class="form-control" maxlength="15" id="numero_documento" name="numero_documento" placeholder="Número de Documento" required>
+                      <input type="number" class="form-control" max="15" id="numero_documento" name="numero_documento" placeholder="Número de Documento" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 1</label>
-                      <input type="text" class="form-control" maxlength="25" id="nombre1" name="nombre1" placeholder="Ingrese el Nombre" required>
+                      <input type="text" class="form-control" maxlength="25" id="nombre_1" name="nombre_1" placeholder="Ingrese el Nombre" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 2</label>
-                      <input type="text" class="form-control" maxlength="25" id="name2" name="name2" placeholder="Ingrese el Nombre">
+                      <input type="text" class="form-control" maxlength="25" id="nombre_2" name="nombre_2" placeholder="Ingrese el Nombre">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Nombre 3</label>
-                      <input type="text" class="form-control" maxlength="25" id="name3" name="name3" placeholder="Ingrese el Nombre">
+                      <input type="text" class="form-control" maxlength="25" id="nombre_3" name="nombre_3" placeholder="Ingrese el Nombre">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 1</label>
-                      <input type="text" class="form-control" maxlength="25" id="apellido1" name="apellido1" placeholder="Ingrese el Apellido" required>
+                      <input type="text" class="form-control" maxlength="25" id="apellido_1" name="apellido_1" placeholder="Ingrese el Apellido" required>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 2</label>
-                      <input type="text" class="form-control" maxlength="25" id="apellido2" name="apellido2" placeholder="Ingrese el Apellido 2">
+                      <input type="text" class="form-control" maxlength="25" id="apellido_2" name="apellido_2" placeholder="Ingrese el Apellido 2">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido 3</label>
-                      <input type="text" class="form-control" maxlength="25" id="apellido2" name="apellido2" placeholder="Ingrese el Apellido 2">
+                      <input type="text" class="form-control" maxlength="25" id="apellido_3" name="apellido_3" placeholder="Ingrese el Apellido 2">
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Apellido Casado (a)</label>
@@ -234,13 +228,16 @@
                       <input type="text" class="form-control" maxlength="100" id="direccion" name="direccion" placeholder="Ingrese la Dirección" required>
                     </div>
                     <div class="form-group">
-                      <label for="example-date-input" col-form-label>Fecha de Nacimiento</label>
-                       <div>
-                        <input class="form-control" type="date" value="2000-08-19" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
+                        <label for="example-date-input" col-form-label>Fecha Nacimiento</label>
+                    <div>
+                        <input class="form-control" type="date" value="03-08-2018" id="fecha_nacimiento" name="fecha_nacimiento">
+                    </div><br>
+                  
+                   <div class="form-group">
                       <label for="example-tel-input">Teléfono</label>
+                      <div>
+                        <input class="form-control" maxlength="8" type="tel" placeholder="Ingrese el número" id="telefono" name="telefono" required="">
+                      </div>
                     </div>
 
                     <button type="submit" class="btn btn-success">Enviar</button>
@@ -251,9 +248,7 @@
         </div>
 
     </div>
-    <!-- /#wrapper -->
-
-
+    
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

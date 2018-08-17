@@ -16,7 +16,8 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
     
-    $sql="SELECT * FROM tb_digitalizaciond ";
+    $sql="SELECT * FROM tb_expedienterequisito ";
+    $sql1="SELECT * FROM usuarios ";
 ?>
 
 
@@ -133,8 +134,8 @@
                 
                <form action="../insertDB/i_digitalizacion.php" method="POST" class="login-form">
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Expediente Requisito</label>
-                      <select class="form-control" id="expediente" name="Id_expediente">
+                      <label for="exampleFormControlSelect1">Id Expediente Requisito (Num.) </label>
+                      <select class="form-control" id="id_expediente_requisito" name="id_expediente_requisito">
                         
                       <?php
                            
@@ -144,7 +145,7 @@
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[4]."</option>";
                            }
                
                            
@@ -155,16 +156,16 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Usuario</label>
-                      <select class="form-control" id="idUser" name ="Id_User">
+                      <select class="form-control" id="Id_User" name ="Id_User">
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql1))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[2]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
                            }
                
                            
@@ -176,12 +177,12 @@
                       <label for="formGroupExampleInput">Nombre del Archivo</label>
                       <input type="text" class="form-control" maxlength="500" id="nombre_archivo" name="nombre_archivo" placeholder="Ingrese el Nombre de Archivo" required>
                     </div>
+                    
                     <div class="form-group">
-                      <label for="example-date-input" col-form-label>Fecha de Escaneo</label>
-                      <div>
-                        <input class="form-control" type="date" value="2018-08-19" id="fecha_escaneo" name="fecha_escaneo">
-                      </div>
-                    </div>
+                        <label for="example-date-input" col-form-label>Fecha Escaneo</label>
+                    <div>
+                        <input class="form-control" type="date" value="03-08-2018" id="fecha_escaneo" name="fecha_escaneo">
+                    </div><br>
 
                     <button type="submit" class="btn btn-success">Enviar</button>
                 </form> 

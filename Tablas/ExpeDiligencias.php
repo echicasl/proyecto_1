@@ -16,8 +16,10 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
     
-    $sql="SELECT * FROM departamento";
-    $sql1="SELECT * FROM departamento";
+    $sql="SELECT * FROM tb_expediente";
+    $sql1="SELECT * FROM tb_digitalizacion";
+    $sql2="SELECT * FROM usuarios";
+    $sql3="SELECT * FROM tb_diligencias";
 
 
 ?>
@@ -132,7 +134,7 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
                 <h1>Expediente Diligencias</h1><br>
 
-                <form name="formexpdilig" action="" method="POST">
+               <form action="../insertDB/i_expedientediligencia.php" method="POST" class="login-form">
 
                    <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Expediente</label>
@@ -145,7 +147,7 @@
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[0]."</option>";
                            }
                
                            
@@ -159,12 +161,12 @@
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql1))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[3]."</option>";
                            }
                
                            
@@ -174,11 +176,11 @@
                     </div>
                    <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Usuario</label>
-                      <select class="form-control" id="iduserid_usuario" name="iduserid_usuario">
+                      <select class="form-control" id="id_usuario" name="id_usuario">
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql2))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
@@ -197,12 +199,12 @@
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql3))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[2]."</option>";
                            }
                
                            
@@ -216,32 +218,25 @@
                     </div> 
                     <div class="form-group">
                       <label for="formGroupExampleInput">Año Expediente</label>
-                      <input type="number" class="form-control" id="anio_expediente" name="anio_expediente" placeholder="Ingrese Año de Expediente" min="0" max="4" required>
+                      <input type="number" class="form-control" id="anio_expediente" name="anio_expediente" placeholder="Ingrese Año de Expediente" min="0" max="2080" required>
                     </div> 
                     <div class="form-group">
-                      <label for="example-date-input" col-form-label>Fecha Diligencia</label>
-                       <div>
-                        <input class="form-control" type="date" value="2018-08-19" id="fecha_diligencia" name="fecha_diligencia" required>
-                      </div>
-                    </div>
+                        <label for="example-date-input" col-form-label>Fecha Diligencia</label>
+                    <div>
+                        <input class="form-control" type="date" value="03-08-2018" id="fecha_diligencia" name="fecha_diligencia">
+                    </div><br>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Resultado Diligencia</label>
                       <input type="text" class="form-control" maxlength="500" id="resultado_diligencia" name="resultado_diligencia" required>
                     </div>
 
-                    <div>
-                        <label>Diligencia Finalizada</label><br>  
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="diligencia_finalizada1" id="diligencia_finalizada1" value="option1" checked> Si
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="diligencia_finalizada2" id="diligencia_finalizada2" value="option2"> No
-                            </label>
-                        </div>
-                    </div><br>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Diligencia Finalizada</label>
+                      <select class="form-control" id="diligencia_finalizada" name="diligencia_finalizada">
+                        <option>Si</option>
+                        <option>No</option>
+                      </select>
+                    </div>
 
                     <button type="submit" class="btn btn-success">Enviar</button>
                     

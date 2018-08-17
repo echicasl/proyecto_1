@@ -16,9 +16,9 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
     
-    $sql="SELECT * FROM tb_requesito";
-    $sql="SELECT * FROM tb_requesito";
-    $sql="SELECT * FROM tb_requesito";
+    $sql="SELECT * FROM tb_requisito";
+    $sql1="SELECT * FROM tb_expediente";
+    $sql2="SELECT * FROM Usuarios";
 
 ?>
 
@@ -131,11 +131,11 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
                 <h1>Expediente Requisitos</h1><br>
 
-                <form name="formexpreq" action="" method="POST">
+                <form action="../insertDB/i_expedienteRequisito.php" method="POST" class="login-form">
 
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Requisito</label>
-                      <select class="form-control" id="req">
+                      <select class="form-control" id="id_requisito" name="id_requisito">
                       <?php
                            
 
@@ -144,7 +144,7 @@
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[2]."</option>";
                            }
                
                            
@@ -154,16 +154,16 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Expediente</label>
-                      <select class="form-control" id="exped">
+                      <select class="form-control" id="id_expediente" name="id_expediente">
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql1))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
                            {
-                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                               echo "<option value=\"".$row[0]."\">".$row[0]."</option>";
                            }
                
                            
@@ -173,11 +173,11 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Usuario</label>
-                      <select class="form-control" id="iduser">
+                      <select class="form-control" id="id_usuario" name="id_usuario">
                       <?php
                            
 
-                           if ($result=mysqli_query($conexion,$sql))
+                           if ($result=mysqli_query($conexion,$sql2))
                            {
                            // Fetch one and one row
                                while ($row=mysqli_fetch_row($result))
@@ -192,21 +192,20 @@
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Número Expediente</label>
-                      <input type="number" class="form-control" id="numero_expediente" name="numero_expediente" placeholder="1">
+                      <input type="number" class="form-control" id="numero_expediente" name="numero_expediente" placeholder="Ingresa el número">
                     </div>  
                     <div class="form-group">
                       <label for="formGroupExampleInput">Año Expediente</label>
-                      <input type="number" class="form-control" id="anio_expediente" name="anio_expediente" placeholder="1">
+                      <input type="number" class="form-control" id="anio_expediente" name="anio_expediente" placeholder="Ingresa el año" max="2018" min="1930">
                     </div>  
                     <div class="form-group">
-                      <label for="example-date-input" col-form-label>Fecha de Presentación</label>
-                      <div>
-                        <input class="form-control" type="date" value="2018-08-19" id="fecha_presentacion" name="fecha_presentacion">
-                      </div>
-                    </div>
+                        <label for="example-date-input" col-form-label>Fecha de Presentación</label>
+                    <div>
+                        <input class="form-control" type="date" value="03-08-2018" id="fecha_presentacion" name="fecha_presentacion">
+                    </div><br>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1"> Aceptado</label>
-                      <select class="form-control" id="acept">
+                      <select class="form-control" id="aceptado" name="aceptado">
                         <option>Sí</option>
                         <option>No</option>
                       </select>

@@ -1,13 +1,24 @@
 <?php
-    session_start();
+ /*   session_start();
 
-/*
+
     if (isset($_SESSION['autorizado']) == true) {
     
     } else {
         require("../libreria/notaNoAutorizado.php");
     exit;
     }*/
+    
+    require("../conexion.php");
+
+    if (mysqli_connect_errno())
+      {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      }
+    
+    $sql="SELECT * FROM desarrollador ";
+    $sql0="SELECT * FROM tb_infopersonasinv ";
+    $sql1="SELECT * FROM tb_tipotelefono ";
 
 ?>
 
@@ -121,41 +132,62 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menú</a><br><br>
                 <h1>Teléfonos</h1><br>
 
-                <form name="forminfopersonas" action="" method="POST">
+                <form action="../insertDB/i_telefonos.php" method="POST" class="login-form">
                     <div class="form-group">
                       <label for="example-tel-input">Número de Teléfono</label>
                       <div>
-                        <input class="form-control" maxlength="8" type="tel" value="4025 3614" id="numero_telefono" name="numero_telefono" required="">
+                        <input class="form-control" maxlength="8" type="tel" placeholder="Ingrese el número" id="numero_telefono" name="numero_telefono" required="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Desarrollador</label>
-                      <select class="form-control" id="id_desarrollador">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <select class="form-control" id="id_desarrollador" name="id_desarrollador">
+                      <?php
+                        
+                           if ($result=mysqli_query($conexion,$sql))
+                           {
+                           // Fetch one and one row
+                               while ($row=mysqli_fetch_row($result))
+                           {
+                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                           }
+                           
+                               }
+                            ?>
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Id Información Solicitante</label>
-                      <select class="form-control" id="id_informacion_solicitante">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <select class="form-control" id="id_informacion_solicitante" name="id_informacion_solicitante">
+                      <?php
+                        
+                           if ($result=mysqli_query($conexion,$sql0))
+                           {
+                           // Fetch one and one row
+                               while ($row=mysqli_fetch_row($result))
+                           {
+                               echo "<option value=\"".$row[0]."\">".$row[5]." ".$row[8]."</option>";
+                           }
+                           
+                               }
+                            ?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Id Tipo Telénono</label>
-                      <select class="form-control" id="id_tipotelefono">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <label for="exampleFormControlSelect1">Id Tipo Teléfono</label>
+                      <select class="form-control" id="id_tipotelefono" name="id_tipotelefono">
+                      <?php
+                        
+                           if ($result=mysqli_query($conexion,$sql1))
+                           {
+                           // Fetch one and one row
+                               while ($row=mysqli_fetch_row($result))
+                           {
+                               echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
+                           }
+                           
+                               }
+                            ?>
                       </select>
                     </div>
                     

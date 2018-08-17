@@ -161,6 +161,10 @@
 
                 </form>
 
+                 <form action="../Tablas/U_Municipios.php" method="POST" class="login-form">
+                 <button type="submit" class="btn btn-success">Actualizar datos</button>
+                 </form>
+
             </div>
         </div>
 
